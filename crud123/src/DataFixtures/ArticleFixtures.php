@@ -19,6 +19,7 @@ class ArticleFixtures extends Fixture
             $article->setLength(rand(5,30));  //random 1 số trong khoảng 5 đến 30
             $article->setName("Article " . $i);
             $article->setDate(\DateTime::createFromFormat('Y-m-d','2022-05-11'));
+            $article->setImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2p9aDPHxa5Mw9_2ICGpeG9fYpSqywo8tkBA&usqp=CAU");
             //lưu dữ liệu vào DB
             $manager->persist($article);
         }

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article index{% endblock %}
+
+{% block body %}
+<div class="container col-md-7 text-center">
+    <h1 class="text text-primary">Article index</h1>
+
+    <table class="table table-info">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Length</th>
+                <th>Date</th>
+                <th>Image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td>{{ article.id }}</td>
+                <td>{{ article.name }}</td>
+                <td>{{ article.length }}</td>
+                <td>{{ article.date ? article.date|date('Y-m-d') : '' }}</td>
+                <td>
+                    <img src="{{ article.image }}" width="150" height="100">
+                </td>
+                <td>
+                    <a href="{{ path('app_article_show', {'id': article.id}) }}">show</a>
+                    <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_article_new') }}">Create new</a>
+</div>
+{% endblock %}
