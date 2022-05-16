@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Twig</title>
+</head>
+<body>
+   {# nhận và hiển thị dữ liệu được gửi từ back-end #}
+<center>
+   <a href="{{ path('homepage')}}">
+      Back to homepage
+   </a>
+   <h1> University Name: {{ uni }} </h1>
+   <h2><i> University address: {{ add }} </i></h2>
+   <table border=1>
+     <tr>
+        <th>Major Number</th>
+        <th>Major Name</th>
+     </tr>
+     {% set i = 1 %}
+     {% for m in major %}
+      <tr>
+         <td>{{ i }}</td>
+         <td>{{ m }}</td>
+      </tr>
+      {% set i = i+1 %}
+     {% endfor %}
+   </table>
+</center>
+</body>
+</html>
