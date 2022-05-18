@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+{% block body %}
+<table class="table table-bordered text-center">
+    <tr>
+        <th>Mobile ID</th>
+        <th>Mobile Name</th>
+        <th>Mobile Price</th>
+        <th>Mobile Color</th>
+        <th>Mobile Quantity</th>
+        <th>Mobile Manufacturing Date</th>
+    </tr>
+    {% for mobile in mobiles %}
+        <tr>
+            <td>{{ mobile.id }}</td>
+            <td>{{ mobile.name }}</td>
+            <td>{{ mobile.price }} $ </td>
+            <td>{{ mobile.color }}</td>
+            <td>{{ mobile.quantity }}</td>
+            <td>{{ mobile.date | date('d-m-Y') }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}
