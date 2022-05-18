@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Blog;
 use App\Repository\BlogRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -62,5 +64,24 @@ class BlogController extends AbstractController
             return new Response("Blog not found", 404);
         }
     }
-    
+
+    //INSERT INTO Blog ....
+    #[Route('/', methods: ['POST'], name: 'add_new_blog')]
+    public function addBlog (Request $request) {
+        //tạo mới 1 object Blog
+        $blog = new Blog;
+        //decode dữ liệu từ request của client
+        $data = json_decode($request->getContent(),true);
+        //set dữ liệu tương ứng cho object sử dụng setter
+        $blog->setTitle($data['title']);
+        $blog->setAuthor($data['author']);
+        $blog->setContent($data['content']);
+        $blog->setDate(\DateTime::createFromFormat('Y-m-d',$data['date']));
+        //lưu dữ liệu từ object vào database
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($blog);
+        $manager->flush();
+        //trả về Response cho client 
+        return new Response(null,Response::HTTP_CREATED); //code = 201
+    }
 }   
