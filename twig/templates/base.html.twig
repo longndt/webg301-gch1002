@@ -15,17 +15,20 @@
         {% endblock %}
     </head>
     <body>
+        {# khai báo global variable (biến toàn cục) để sử dụng ở tất cả các page twig kế thừa #}
+        {% set hanoi = "Hà Nội là thủ đô của Việt Nam" %}
         {% block navigation %}
         <nav class="nav justify-content-center|justify-content-end">
           {# "path" trong thẻ a dùng để link các trang web local #}
           {# trong "path" điền name của route #}
           <a class="nav-link" href="{{ path('mobile') }}">Mobile</a>
           <a class="nav-link" href="{{ path('seagame') }}">Seagame</a>
+          <a class="nav-link" href="{{ path('demo') }}">Demo</a>
         </nav>
         {% endblock %}
         {% block body %}{% endblock %}
         {% block footer %}
-            <h6 class="text-center">Copyright by Greenwich University - 2022 </h6>
+            <p class="text-center">Copyright by Greenwich University - 2022 </p>
         {% endblock %}
     </body>
 </html>

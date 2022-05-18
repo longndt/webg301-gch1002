@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+{% block body %}
+   <div class="container col-md-5 text-center mb-3">
+      <div class="row">
+         <div class="col">
+            <img src="{{ mobile.image }}" width="300" height="400" />
+         </div>
+         <div class="col">
+            <h1>{{ mobile.name }}</h1>
+            <h2>Price: {{ mobile.price }} $</h2>
+            <h2>Quantity: {{ mobile.quantity }}</h2>
+            <h2>Color: {{ mobile.color}}</h2>
+            <h2>Date: {{ mobile.date | date('d/m/Y')}}</h2>
+         </div>
+      </div>
+   </div>
+{% endblock %}

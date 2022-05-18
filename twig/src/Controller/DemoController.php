@@ -13,4 +13,17 @@ class DemoController extends AbstractController
     {
         return $this->render('demo/seagame.html.twig');
     }
+
+    #[Route('/demo', name: 'demo')]
+    public function demo() {
+        $country = "Vietnam";
+        $year = 2022;
+        $numbers = array(10,20,30,40,50);
+        return $this->render('demo/demo.html.twig',
+        [
+            'country' => $country,
+            'year' => $year,
+            'numbers' => $numbers
+        ]);
+    }
 }

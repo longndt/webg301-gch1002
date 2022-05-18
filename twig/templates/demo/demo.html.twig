@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+{% block body %}
+   <h1>{{ hanoi }}</h1>
+   <h3>Max: {{ max (1,2,3,4,5) }}</h3>
+   <h3>Min: {{ min (1,2,3,4,5) }}</h3>
+   <h3>Max: {{ max (numbers) }}</h3>
+   <h3>Min: {{ min (numbers) }}</h3>
+   {% set age = 22 %}
+   <h3>We are living in {{ country }} </h3>
+   <h3>Current year: {{ year }} </h3>
+   {% set yob = year - age %}
+   <h4>Year of birth: {{ yob }}</h4>
+   {% set grade = 3.5 %}
+   {% if grade >= 5.0 %}
+      <i>You have passed the exam</i>
+   {% else %}
+      <i>You have failed the exam</i>
+   {% endif %}
+   <br>
+   {% for i in 1..20 %}
+      {{ i }} <br>
+   {% endfor %}
+   {% for c in 'a'..'z' %}
+      {{ c }} 
+   {% endfor %}
+
+{% endblock %}

@@ -5,23 +5,22 @@
         <th>Mobile ID</th>
         <th>Mobile Name</th>
         <th>Mobile Price</th>
-        <th>Mobile Color</th>
-        <th>Mobile Quantity</th>
-        <th>Mobile Manufacturing Date</th>
         <th>Mobile Image</th>
     </tr>
+    {% set count = 0 %}
     {% for mobile in mobiles %}
         <tr>
             <td>{{ mobile.id }}</td>
-            <td>{{ mobile.name }}</td>
+            <td>{{ mobile.name | upper}}</td>
             <td>{{ mobile.price }} $ </td>
-            <td>{{ mobile.color }}</td>
-            <td>{{ mobile.quantity }}</td>
-            <td>{{ mobile.date | date('d-m-Y') }}</td>
             <td>
-                <img src="{{ mobile.image}}" width="120" height="150">
+                <a href="{{ path('mobile_detail', {'id' :  mobile.id }) }}">
+                   <img src="{{ mobile.image}}" width="120" height="150">
+                </a>
             </td>
         </tr>
+        {% set count = count + 1 %}
     {% endfor %}
+    <h2>Total mobiles: {{ mobiles|length }}</h2>
 </table>
 {% endblock %}
