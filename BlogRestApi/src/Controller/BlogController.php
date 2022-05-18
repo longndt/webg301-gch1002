@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Blog;
 use App\Repository\BlogRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -67,7 +68,7 @@ class BlogController extends AbstractController
 
     //INSERT INTO Blog ....
     #[Route('/', methods: ['POST'], name: 'add_new_blog')]
-    public function addBlog (Request $request) {
+    public function addBlog (Request $request, ManagerRegistry $managerRegistry) {
         //tạo mới 1 object Blog
         $blog = new Blog;
         //decode dữ liệu từ request của client
@@ -78,10 +79,35 @@ class BlogController extends AbstractController
         $blog->setContent($data['content']);
         $blog->setDate(\DateTime::createFromFormat('Y-m-d',$data['date']));
         //lưu dữ liệu từ object vào database
-        $manager = $this->getDoctrine()->getManager();
+        //$manager = $this->getDoctrine()->getManager();
+        $manager = $managerRegistry->getManager();
         $manager->persist($blog);
         $manager->flush();
         //trả về Response cho client 
         return new Response(null,Response::HTTP_CREATED); //code = 201
+    }
+
+    //UPDATE Blog SET ... WHERE id = $id
+    #[Route('/{id}', methods: ['PUT'], name: 'edit_blog')]
+    public function editBlog ($id, Request $request, ManagerRegistry $managerRegistry) {
+        //lấy ra Blog cần edit trong DB theo id
+        $blog = $managerRegistry->getRepository(Blog::class)->find($id);
+        //check xem Blog này có tồn tại trong DB không
+        if ($blog == null) {
+            return new Response("Blog not found", Response::HTTP_BAD_REQUEST); //code = 400
+        }
+        //decode request từ client
+        $data = json_decode($request->getContent(),true);
+        //sử dụng setter để set dữ liệu mới cho object Blog
+        $blog->setTitle($data['title']);
+        $blog->setAuthor($data['author']);
+        $blog->setContent($data['content']);
+        $blog->setDate(\DateTime::createFromFormat('Y-m-d',$data['date']));
+        //lưu dữ liệu vào DB
+        $manager = $managerRegistry->getManager();
+        $manager->persist($blog);
+        $manager->flush();
+        //trả response về client
+        return new Response("Blog has been updated successfully !", Response::HTTP_ACCEPTED); //code = 202
     }
 }   
