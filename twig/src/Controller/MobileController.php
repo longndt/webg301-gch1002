@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MobileController extends AbstractController
 {
-   #[Route('/', name: 'mobile_list')]
+   #[Route('/', name: 'mobile')]
    public function viewAllMobile (MobileRepository $mobileRepository) {
         $mobiles = $mobileRepository->findAll();
         return $this->render("mobile/index.html.twig",

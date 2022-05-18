@@ -8,6 +8,7 @@
         <th>Mobile Color</th>
         <th>Mobile Quantity</th>
         <th>Mobile Manufacturing Date</th>
+        <th>Mobile Image</th>
     </tr>
     {% for mobile in mobiles %}
         <tr>
@@ -17,6 +18,9 @@
             <td>{{ mobile.color }}</td>
             <td>{{ mobile.quantity }}</td>
             <td>{{ mobile.date | date('d-m-Y') }}</td>
+            <td>
+                <img src="{{ mobile.image}}" width="120" height="150">
+            </td>
         </tr>
     {% endfor %}
 </table>

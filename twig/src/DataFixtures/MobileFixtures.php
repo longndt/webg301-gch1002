@@ -18,6 +18,7 @@ class MobileFixtures extends Fixture
             $mobile->setColor("Blue");
             $mobile->setQuantity(rand(20,50));
             $mobile->setDate(\DateTime::createFromFormat('Y-m-d','2022-03-06'));
+            $mobile->setImage("https://cdn.hoanghamobile.com/i/productlist/dsp/Uploads/2021/09/15/image-removebg-preview-15.png");
             $manager->persist($mobile);
         }
         $manager->flush();

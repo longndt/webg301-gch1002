@@ -1,0 +1,13 @@
+{# "extends" để kế thừa file layout  #}
+{% extends "base.html.twig" %}
+{% block title %} Seagame 2022 {% endblock %}
+{# override block body của file layout #}
+{% block body %}
+<div class="container col-md-6">
+  {# "asset" dùng để truy cập vào thư mục public 
+  chứa tài nguyên của website #}
+   <img src="{{ asset('images/image1.png') }}">
+   <img src="{{ asset('images/image2.jpg') }}">
+   <img src="{{ asset('images/image3.jpg') }}">
+</div>
+{% endblock %}
