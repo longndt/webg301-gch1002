@@ -22,6 +22,18 @@ class Student
     #[ORM\Column(type: 'float')]
     private $grade;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $gender;
+
+    #[ORM\Column(type: 'date')]
+    private $enrol;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $graduate;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $image;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +71,54 @@ class Student
     public function setGrade(float $grade): self
     {
         $this->grade = $grade;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): self
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getEnrol(): ?\DateTimeInterface
+    {
+        return $this->enrol;
+    }
+
+    public function setEnrol(\DateTimeInterface $enrol): self
+    {
+        $this->enrol = $enrol;
+
+        return $this;
+    }
+
+    public function getGraduate(): ?string
+    {
+        return $this->graduate;
+    }
+
+    public function setGraduate(string $graduate): self
+    {
+        $this->graduate = $graduate;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

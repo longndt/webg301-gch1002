@@ -9,6 +9,11 @@
             <th>Student Name</th>
             <th>Student Age</th>
             <th>Student Grade</th>
+            <th>Student Gender</th>
+            <th>Student Image</th>
+            <th>Enrolment Date</th>
+            <th>Is Graduated</th>
+   
         </tr>
         {% for student in students %}
         <tr>
@@ -16,6 +21,14 @@
             <td>{{ student.name }}</td>
             <td>{{ student.age }}</td>
             <td>{{ student.grade }}</td>
+            <td>{{ student.gender }} </td>
+            <td>
+                <img src="{{ student.image }}" width="100" height="100">
+            </td>
+            <td> {{ student.enrol | date('d/m/Y')}}
+            <td> {{ student.graduate }}
+         
+            </td>
         </tr>
         {% endfor %}
     </table>
