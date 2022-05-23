@@ -3,6 +3,11 @@
 <div class="container col-md-8 text-center">
     <h1 class="text text-primary">Student List</h1>
     <h3 class="text text-danger">Total students  : {{ students|length }} </h3> 
+    <h3 class="text text-danger">Highest grade : </h3> 
+    <h3 class="text text-danger">Lowest grade : </h3> 
+    <h3 class="text text-danger">Average grade : </h3>
+    <h3 class="text text-danger">Total male : </h3> 
+    <h3 class="text text-danger">Total female : </h3> 
     <a class="btn btn-warning" href="{{ path('create_student') }}">ADD</a>
     <table class="table table-bordered mt-3">
         <tr>

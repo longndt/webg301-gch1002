@@ -66,16 +66,23 @@ class StudentController extends AbstractController
         );
     }
 
-    //Cách 2: tạo form rieeng và gọi đến trong Controller (recommend)
+    //Cách 2: tạo form riêng và gọi đến trong Controller (recommend)
     #[Route('/create', name: 'create_student')]
     public function createStudent(Request $request) {
         $student = new Student;
         $form = $this->createForm(StudentType::class, $student);
         $form->handleRequest($request);
+        $students = $this->getDoctrine()->getRepository(Student::class)->findAll();
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager = $this->getDoctrine()->getManager(); //entity manager
-            $manager->persist($student);
-            $manager->flush();
+            //check số lượng sinh viên hiện tại đã quá max quantity cho phép hay chưa
+            //nếu chưa vượt quá thì add SV mới vào DB 
+            //ngược lại thì trả về thông báo lỗi và không add
+            $max_quantity = 5;
+            if (count($students) <= $max_quantity) {
+                $manager = $this->getDoctrine()->getManager(); //entity manager
+                $manager->persist($student);
+                $manager->flush();
+            }
             return $this->redirectToRoute("view_students");
         }
         //dùng renderForm() thay cho render() để load form vào view (recommend)
