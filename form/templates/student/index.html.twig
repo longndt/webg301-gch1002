@@ -2,12 +2,34 @@
 {% block body %}
 <div class="container col-md-8 text-center">
     <h1 class="text text-primary">Student List</h1>
-    <h3 class="text text-danger">Total students  : {{ students|length }} </h3> 
-    <h3 class="text text-danger">Highest grade : </h3> 
-    <h3 class="text text-danger">Lowest grade : </h3> 
-    <h3 class="text text-danger">Average grade : </h3>
-    <h3 class="text text-danger">Total male : </h3> 
-    <h3 class="text text-danger">Total female : </h3> 
+    <div class="container-sm col-sm-3">
+        <table class="table table-hover mt-3">
+            <tr>
+                <th>Total students</th>
+                <td>{{ students|length }}</td>
+            </tr>
+            <tr>
+                <th>Highest grade</th>
+                <td> </td>
+            </tr>
+            <tr>
+                <th>Lowest grade</th>
+                <td> </td>
+            </tr>
+            <tr>
+                <th>Average grade</th>
+                <td> </td>
+            </tr>
+            <tr>
+                <th>Total males</th>
+                <td> </td>
+            </tr>
+            <tr>
+                <th>Total female</th>
+                <td> </td>
+            </tr>
+        </table>
+    </div>
     <a class="btn btn-warning" href="{{ path('create_student') }}">ADD</a>
     <table class="table table-bordered mt-3">
         <tr>
