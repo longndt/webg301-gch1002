@@ -2,6 +2,7 @@
 {% block body %}
 <div class="container col-md-8 text-center">
     <h1 class="text text-primary">Student List</h1>
+    <h3 class="text text-danger">Total students  : {{ students|length }} </h3> 
     <a class="btn btn-warning" href="{{ path('create_student') }}">ADD</a>
     <table class="table table-bordered mt-3">
         <tr>
@@ -12,7 +13,7 @@
             <th>Student Gender</th>
             <th>Student Image</th>
             <th>Enrolment Date</th>
-            <th>Is Graduated</th>
+            <th>Graduated</th>
    
         </tr>
         {% for student in students %}
@@ -26,9 +27,7 @@
                 <img src="{{ student.image }}" width="100" height="100">
             </td>
             <td> {{ student.enrol | date('d/m/Y')}}
-            <td> {{ student.graduate }}
-         
-            </td>
+            <td> {{ student.graduate }} </td>
         </tr>
         {% endfor %}
     </table>
