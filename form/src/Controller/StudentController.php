@@ -4,10 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Student;
 use App\Repository\StudentRepository;
-use Doctrine\DBAL\Types\FloatType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,7 +40,7 @@ class StudentController extends AbstractController
         $form = $this->createFormBuilder($student)
                       ->add("Name", TextType::class)   //HTML: input type="text"
                       ->add("Age", IntegerType::class) 
-                      ->add("Grade", FloatType::class)
+                      ->add("Grade", NumberType::class)
                       ->add("Add", SubmitType::class)   //HTML: input type="submit"
                       ->getForm();
         //B3: handle request cho form
@@ -53,6 +53,8 @@ class StudentController extends AbstractController
             $manager = $managerRegistry->getManager();
             $manager->persist($student);
             $manager->flush();
+            //redirect về trang index chứa dữ liệu của bảng từ database
+            return $this->redirectToRoute("view_students");
         }
         //B5: render ra view chứa form
         //Cách 1: dùng hàm render() & createView()
