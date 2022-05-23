@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Student;
+use App\Form\StudentType;
 use App\Repository\StudentRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -63,5 +64,24 @@ class StudentController extends AbstractController
                 'studentForm' => $form->createView()
             ]
         );
+    }
+
+    //Cách 2: tạo form rieeng và gọi đến trong Controller (recommend)
+    #[Route('/create', name: 'create_student')]
+    public function createStudent(Request $request) {
+        $student = new Student;
+        $form = $this->createForm(StudentType::class, $student);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager(); //entity manager
+            $manager->persist($student);
+            $manager->flush();
+            return $this->redirectToRoute("view_students");
+        }
+        //dùng renderForm() thay cho render() để load form vào view (recommend)
+        return $this->renderForm("student/add.html.twig",
+        [
+            'studentForm' => $form
+        ]);
     }
 }
