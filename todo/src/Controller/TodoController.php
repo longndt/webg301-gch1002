@@ -23,8 +23,8 @@ class TodoController extends AbstractController
     public function todoDetail(TodoRepository $todoRepository, $id) {
         $todo = $todoRepository->find(($id));
         if ($todo == null) {
-            //đẩy flash message về front-end 
-            $this->addFlash("Error","Todo not found");
+            //gửi flash message về view
+            $this->addFlash("Error","Todo not found !");
             return $this->redirectToRoute("todo_index");
         } else {
             return $this->render("todo/detail.html.twig",
@@ -32,5 +32,19 @@ class TodoController extends AbstractController
                 'todo' => $todo
             ]);
         }
+    }
+
+    #[Route("/delete/{id}", name: 'todo_delete')]
+    public function todoDelete(TodoRepository $todoRepository, $id) {
+        $todo = $todoRepository->find($id);
+        if ($todo == null) {
+            $this->addFlash("Error", "Can not delete this Todo !");
+        } else {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->remove($todo);
+            $manager->flush();
+            $this->addFlash("Success", "Delete todo succeed !");
+        }
+        return $this->redirectToRoute("todo_index");
     }
 }
