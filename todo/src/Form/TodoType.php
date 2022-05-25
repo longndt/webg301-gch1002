@@ -3,14 +3,16 @@
 namespace App\Form;
 
 use App\Entity\Todo;
+use App\Entity\Person;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class TodoType extends AbstractType
 {
@@ -52,6 +54,12 @@ class TodoType extends AbstractType
             [
                 'label' => 'Todo Deadline',
                 'widget' => 'single_text'
+            ])
+            ->add('person', EntityType::class,
+            [
+                'label' => 'Person Name',
+                'class' => Person::class,
+                'choice_label' => 'name'
             ])
             ->add('Save', SubmitType::class)
         ;

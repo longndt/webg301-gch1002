@@ -2,7 +2,6 @@
 {% block body %}
 <div class="container-fluid col-md-6 text-center mt-3">
     <h1 class="text text-primary"> Todo List </h1>
-    <a class="btn btn-success" href="{{ path('todo_add')}}">ADD</a>
     {# nhận flash message từ controller #}
     {% for flash in app.session.flashBag.get("Error") %}
          <p class="alert alert-danger">{{ flash }} </p>

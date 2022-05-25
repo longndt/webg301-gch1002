@@ -28,6 +28,9 @@ class Todo
     #[ORM\Column(type: 'date')]
     private $duedate;
 
+    #[ORM\ManyToOne(targetEntity: Person::class, inversedBy: 'todos')]
+    private $person;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +92,18 @@ class Todo
     public function setDuedate(\DateTimeInterface $duedate): self
     {
         $this->duedate = $duedate;
+
+        return $this;
+    }
+
+    public function getPerson(): ?Person
+    {
+        return $this->person;
+    }
+
+    public function setPerson(?Person $person): self
+    {
+        $this->person = $person;
 
         return $this;
     }

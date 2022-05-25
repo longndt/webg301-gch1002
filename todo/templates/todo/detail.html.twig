@@ -10,6 +10,16 @@
          <td>{{ todo.id }}</td>
       </tr>
       <tr>
+         <th>Person</th>
+         <td>
+         {% if todo.person != null %}
+             {{ todo.person.name }}
+         {% else %}
+             <i>N/A</i>
+         {% endif %}
+        </td>
+      </tr>
+      <tr>
          <th>Todo Title</th>
          <td>{{ todo.name }}</td>
       </tr>
