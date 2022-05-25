@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+{% block body %}
+<div class="container col-md-5 text-center mt-3">
+   <table class="table table-primary">
+      <tr>
+         <th colspan="2" class="detail">Todo Detail</th>
+      </tr>
+      <tr>
+         <th>Todo Id</th>
+         <td>{{ todo.id }}</td>
+      </tr>
+      <tr>
+         <th>Todo Title</th>
+         <td>{{ todo.name }}</td>
+      </tr>
+      <tr>
+         <th>Todo Information</th>
+         <td>{{ todo.description }}</td>
+      </tr>
+      <tr>
+         <th>Todo Type</th>
+         <td>{{ todo.category }}</td>
+      </tr>
+      {% set prior = null %}
+      {% if todo.priority == 1 or todo.priority == 2 %}
+         {% set prior = "High" %}
+      {% elseif todo.priority == 4 or todo.priority == 5  %}
+          {% set prior = "Low" %}
+      {% else %} 
+         {% set prior = "Medium" %}
+      {% endif %}
+      <tr>
+         <th>Todo Priority</th>
+         <td>{{ todo.priority }} ({{ prior }})</td>
+      </tr>
+      <tr>
+         <th>Todo Deadline</th>
+         <td>{{ todo.duedate | date ('d/m/Y') }}</td>
+      </tr>
+   </table>
+</div>
+{% endblock %}

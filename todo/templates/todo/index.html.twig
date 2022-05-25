@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+{% block body %}
+<div class="container-fluid col-md-6 text-center mt-3">
+    <table class="table table-hover">
+        <tr>
+            <th>Todo No.</th>
+            <th>Todo Title</th>
+            <th>Todo Deadline</th>
+            <th>Actions</th>
+        </tr>
+        {% for todo in todos %}
+        <tr>
+            <td>{{ todo.id }}</td>
+            <td>{{ todo.name }}</td>
+            <td>{{ todo.duedate | date('d/m/Y') }}</td>
+            <td>
+                <a class="btn btn-info" href="{{ path("todo_detail", {'id' : todo.id }) }}">Detail</a>
+                <a class="btn btn-warning" href="">Update</a>
+                <a class="btn btn-danger" href="">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
