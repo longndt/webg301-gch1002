@@ -2,6 +2,7 @@
 {% block body %}
 <div class="container-fluid col-md-6 text-center mt-3">
     <h1 class="text text-primary"> Todo List </h1>
+    <a class="btn btn-success" href="{{ path('todo_add')}}">ADD</a>
     {# nhận flash message từ controller #}
     {% for flash in app.session.flashBag.get("Error") %}
          <p class="alert alert-danger">{{ flash }} </p>
@@ -23,7 +24,7 @@
             <td>{{ todo.duedate | date('d/m/Y') }}</td>
             <td>
                 <a class="btn btn-info" href="{{ path("todo_detail", {'id' : todo.id }) }}">Detail</a>
-                <a class="btn btn-warning" href="">Update</a>
+                <a class="btn btn-warning" href="{{ path("todo_edit", {'id' : todo.id }) }}">Update</a>
                 <a class="btn btn-danger" href="{{ path("todo_delete", {'id' : todo.id }) }}"
                 onclick="return confirm('Are you sure to delete this Todo ?');"
                 >Delete</a>

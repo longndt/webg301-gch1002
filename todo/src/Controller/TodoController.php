@@ -68,4 +68,27 @@ class TodoController extends AbstractController
             'todoForm' => $todo
         ]);
     }
+
+    #[Route("/edit/{id}", name: 'todo_edit')]
+    public function todoEdit(Request $request, $id) {
+        $todo = $this->getDoctrine()->getRepository(Todo::class)->find($id);
+        if ($todo == null) {
+            $this->addFlash("Error","Can not update non-existed Todo !");   
+            return $this->redirectToRoute("todo_index");
+        } else {
+            $form = $this->createForm(TodoType::class, $todo);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($todo);
+                $manager->flush();
+                $this->addFlash("Success", "Update Todo successfully !");
+                return $this->redirectToRoute("todo_index");
+            }
+        }
+        return $this->renderForm("todo/edit.html.twig",
+        [
+            'todoForm' => $todo
+        ]);
+    }
 }
