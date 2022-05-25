@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Todo;
+use App\Form\TodoType;
 use App\Repository\TodoRepository;
-use Symfony\Bridge\Doctrine\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -20,8 +23,8 @@ class TodoController extends AbstractController
     } 
 
     #[Route('/detail/{id}', name: 'todo_detail')]
-    public function todoDetail(TodoRepository $todoRepository, $id) {
-        $todo = $todoRepository->find(($id));
+    public function todoDetail(ManagerRegistry $managerRegistry, $id) {
+        $todo = $managerRegistry->getRepository(Todo::class)->find(($id));
         if ($todo == null) {
             //gửi flash message về view
             $this->addFlash("Error","Todo not found !");
@@ -46,5 +49,23 @@ class TodoController extends AbstractController
             $this->addFlash("Success", "Delete todo succeed !");
         }
         return $this->redirectToRoute("todo_index");
+    }
+
+    #[Route("/add", name: 'todo_add' )]
+    public function todoAdd(Request $request, ManagerRegistry $managerRegistry) {
+        $todo = new Todo;
+        $form = $this->createForm(TodoType::class,$todo);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $managerRegistry->getManager();
+            $manager->persist($todo);
+            $manager->flush();
+            $this->addFlash("Success", "Add new Todo successfully !");
+            return $this->redirectToRoute("todo_index");
+        }
+        return $this->renderForm("todo/add.html.twig",
+        [
+            'todoForm' => $todo
+        ]);
     }
 }
