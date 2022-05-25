@@ -65,7 +65,7 @@ class TodoController extends AbstractController
         }
         return $this->renderForm("todo/add.html.twig",
         [
-            'todoForm' => $todo
+            'todoForm' => $form
         ]);
     }
 
@@ -88,7 +88,7 @@ class TodoController extends AbstractController
         }
         return $this->renderForm("todo/edit.html.twig",
         [
-            'todoForm' => $todo
+            'todoForm' => $form
         ]);
     }
 }
