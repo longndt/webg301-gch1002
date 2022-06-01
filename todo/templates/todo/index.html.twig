@@ -22,11 +22,11 @@
             <td>{{ todo.name }}</td>
             <td>{{ todo.duedate | date('d/m/Y') }}</td>
             <td>
-                <a class="btn btn-info" href="{{ path("todo_detail", {'id' : todo.id }) }}">Detail</a>
-                <a class="btn btn-warning" href="{{ path("todo_edit", {'id' : todo.id }) }}">Update</a>
+                <a class="btn btn-info" href="{{ path("todo_detail", {'id' : todo.id }) }}">DETAIL</a>
+                <a class="btn btn-warning" href="{{ path("todo_edit", {'id' : todo.id }) }}">EDIT</a>
                 <a class="btn btn-danger" href="{{ path("todo_delete", {'id' : todo.id }) }}"
                 onclick="return confirm('Are you sure to delete this Todo ?');"
-                >Delete</a>
+                >DELETE</a>
             </td>
         </tr>
         {% endfor %}

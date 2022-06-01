@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Person Detail {% endblock %}
+
+{% block body %}
+<div class="container col-md-6 text-center mt-3">
+<h2 class="text text-danger mb-3"> Person Detail </h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Person Name</th>
+            <th>Person Age</th>
+            <th>Person Address</th>
+            <th>Todo List</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td scope="row">{{ person.name }}</td>
+            <td> {{ person.age }} </td>
+            <td> {{ person.address }} </td>
+            <td> 
+            {% if person.todos != null %}
+               {% for todo in person.todos %}
+               <a href="{{ path('todo_detail', {'id': todo.id})}}">
+                  {{ todo.name }}
+               </a> 
+                  <br>
+               {% endfor %}
+            {% else %}
+                <i>No todo yet</i>
+            {% endif %}
+           
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+{% endblock %}

@@ -13,7 +13,9 @@
          <th>Person</th>
          <td>
          {% if todo.person != null %}
-             {{ todo.person.name }}
+         <a href="{{ path('person_detail', {'id' : todo.person.id })}}">
+            {{ todo.person.name }}
+         </a> 
          {% else %}
              <i>N/A</i>
          {% endif %}

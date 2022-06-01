@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Todo List {% endblock %}
+
+{% block body %}
+<div class="container col-md-6 text-center mt-3">
+<h1 class="text text-primary"> Person List </h1>
+{% for message in app.session.flashBag.get("Error") %}
+        <p class="alert alert-danger">{{ message }} </p>
+{% endfor %} 
+{% for message in app.session.flashBag.get("Success") %}
+        <p class="alert alert-warning">{{ message }} </p>
+{% endfor %} 
+<table class="table">
+    <thead>
+        <tr>
+            <th>Person Id</th>
+            <th>Person Name</th>
+            <th>Person Age</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for person in persons %}
+        <tr>
+            <td scope="row">{{ person.id }}</td>
+            <td>
+                <a href="{{ path('person_detail', {'id' : person.id })}}">
+                    {{ person.name }}
+                </a>
+             </td>
+            <td>{{ person.age }}</td>
+            <td>
+                <a class="btn btn-warning" href="{{ path('person_edit', {'id' : person.id })}}">
+                    EDIT
+                </a>
+                <a class="btn btn-danger" href="{{ path('person_delete', {'id' : person.id })}}"
+                onclick="return confirm('Are you sure to delete this person ?')";
+                >
+                    DELETE
+                </a>
+            </td>
+        </tr>
+    {% endfor %}    
+    </tbody>
+</table>
+</div>
+{% endblock %}

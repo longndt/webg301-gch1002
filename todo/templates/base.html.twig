@@ -19,8 +19,11 @@
         {% block navigation %}
         <nav class="navbar navbar-expand navbar-light bg-light">
             <div class="nav navbar-nav">
-                <h5><a class="nav-item nav-link text text-success" href=" {{ path('todo_index') }}">List</a></h5>
-                <h5><a class="nav-item nav-link text text-primary" href=" {{ path('todo_add') }}">Add</a></h5>
+                <h4><a class="nav-item nav-link text text-danger" href=" {{ path('home') }} ">Homepage </a></h4>
+                <h4><a class="nav-item nav-link text text-success" href=" {{ path('todo_index') }}">Todo List</a></h4>
+                <h4><a class="nav-item nav-link text text-success" href=" {{ path('todo_add') }}">Add Todo</a></h4>
+                <h4><a class="nav-item nav-link text text-primary" href=" {{ path('person_index') }}">Person List</a></h4>
+                <h4><a class="nav-item nav-link text text-primary" href=" {{ path('person_add') }} ">Add Person</a></h4>
             </div>
         </nav>
         {% endblock %}
