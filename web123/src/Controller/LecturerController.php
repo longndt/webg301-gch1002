@@ -4,9 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Lecturer;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/lecturer')]
 class LecturerController extends AbstractController
@@ -35,7 +36,7 @@ class LecturerController extends AbstractController
         if ($lecturer == null) {
             $this->addFlash("Error","Lecturer not found !");        
         } 
-        else if (count($lecturer->getCourses()) >= 1 ) {
+        else if (count($lecturer->getLecturers()) >= 1 ) {
             $this->addFlash("Error","Can not delete this lecturer !");
         }
         else {
@@ -45,5 +46,46 @@ class LecturerController extends AbstractController
             $this->addFlash("Success","Delete lecturer succeed  !");
         }
         return $this->redirectToRoute("view_lecturer_list");
+    }
+
+    #[Route('/add', name: 'add_lecturer')]
+    public function LecturerAdd(Request $request) {
+        $lecturer = new Lecturer;
+        $form = $this->createForm(LecturerType::class,$lecturer);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($lecturer);
+            $manager->flush();
+            $this->addFlash("Success","Add lecturer succeed !");
+            return $this->redirectToRoute("view_lecturer_list");
+        }
+        return $this->renderForm("lecturer/add.html.twig",
+        [
+            'lecturerForm' => $form
+        ]);
+    }
+
+    #[Route('/edit/{id}', name: 'edit_lecturer')]
+    public function LecturerEdit(Request $request, ManagerRegistry $managerRegistry, $id) {
+        $lecturer = $managerRegistry->getRepository(Lecturer::class)->find($id);
+        if ($lecturer == null) {
+            $this->addFlash("Error","Lecturer not found !");
+            return $this->redirectToRoute("view_lecturer_list");        
+        } else {
+            $form = $this->createForm(LecturerType::class,$lecturer);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $manager = $managerRegistry->getManager();
+                $manager->persist($lecturer);
+                $manager->flush();
+                $this->addFlash("Success","Edit lecturer succeed !");
+                return $this->redirectToRoute("view_lecturer_list");
+            }
+            return $this->renderForm("lecturer/edit.html.twig",
+            [
+                'lecturerForm' => $form
+            ]);
+        }   
     }
 }

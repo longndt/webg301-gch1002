@@ -47,32 +47,44 @@ class CourseRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Course[] Returns an array of Course objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Course[]
+     */
+    public function sortByNameAscending()
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('course')
+            ->orderBy('course.name',"ASC")
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return Course[]
+     */
+    public function sortByNameDescending()
+    {
+        return $this->createQueryBuilder('course')
+            ->orderBy('course.name',"DESC")
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+    * @return Course[] 
+    */
+    public function searchByName ($name)
+    {
+        return $this->createQueryBuilder('course')
+            ->andWhere('course.name LIKE :name')
+            ->setParameter('name', '%'. $name . '%')
+            ->orderBy('c.id', 'DESC')
+            ->setMaxResults(5)
             ->getQuery()
             ->getResult()
         ;
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Course
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
