@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container-fluid col-md-6 text-center mt-3">
+   <table class="table table-info">
+      <tr>
+         <th colspan=2 class="text text-bg-warning">Course Detail</th>
+      </tr>
+      <tr>
+         <th>Course name</th>
+         <td>{{ course.name }} </td>
+      </tr>
+        <tr>
+         <th>Course description</th>
+         <td>{{ course.description }} </td>
+      </tr>
+        <tr>
+         <th>Course duration</th>
+         <td>{{ course.duration }} (days) </td>
+      </tr>
+      <tr>
+         <th>Lecturer name</th>
+         <td>
+            {% if course.lecturers != null %}
+               {% for lecturer in course.lecturers %}
+                  <a href="{{ path('view_lecturer_by_id', {'id' : lecturer.id })}}">
+                     {{ lecturer.name }}
+                  </a>     
+               {% endfor %}  
+            {% endif %}
+         </td>
+      </tr>
+      <tr>
+         <th>Class name</th>
+         <td>
+            {% if course.SClass != null %}
+                 <a href="{{ path('view_class_by_id', {'id' : course.SClass.id })}}">
+                     {{ course.SClass.name }}
+                  </a>   
+            {% endif %}
+         </td>
+      </tr>
+   </table>
+</div>
+{% endblock %}

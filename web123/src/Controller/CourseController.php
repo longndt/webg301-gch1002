@@ -37,7 +37,7 @@ class CourseController extends AbstractController
         );
     }
 
-    #[Route('/delete/{$id}', name: 'delete_course')]
+    #[Route('/delete/{id}', name: 'delete_course')]
     public function CourseDelete(CourseRepository $courseRepository, $id) {
         $course = $courseRepository->find($id);
         if ($course == null) {

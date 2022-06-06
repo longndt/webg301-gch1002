@@ -53,7 +53,7 @@ class CourseRepository extends ServiceEntityRepository
     public function sortByNameAscending()
     {
         return $this->createQueryBuilder('course')
-            ->orderBy('course.name',"ASC")
+            ->orderBy('course.name', "ASC")
             ->getQuery()
             ->getResult()
         ;
@@ -65,16 +65,16 @@ class CourseRepository extends ServiceEntityRepository
     public function sortByNameDescending()
     {
         return $this->createQueryBuilder('course')
-            ->orderBy('course.name',"DESC")
+            ->orderBy('course.name', "DESC")
             ->getQuery()
             ->getResult()
         ;
     }
 
     /**
-    * @return Course[] 
+    * @return Course[]
     */
-    public function searchByName ($name)
+    public function searchByName($name)
     {
         return $this->createQueryBuilder('course')
             ->andWhere('course.name LIKE :name')
@@ -85,6 +85,5 @@ class CourseRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
-
 }
+
