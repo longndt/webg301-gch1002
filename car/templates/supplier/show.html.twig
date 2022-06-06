@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-3 text-center">
+  <h3 class="text text-center mt-4">Supplier detail</h3>
+  <table class="table table-bordered text-center">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Importer</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ supplier.name }}</td>
+        <td>
+          {% if supplier.isImporter == 1 %}
+              True 
+          {% else %}
+              False
+          {% endif %}
+        </td>
+        <td>
+          <a href="{{ path('supplier_edit', { 'id': supplier.id }) }}">Edit</a><br>
+          <a href="{{ path('supplier_delete', { 'id': supplier.id }) }}">Delete</a><br>  
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

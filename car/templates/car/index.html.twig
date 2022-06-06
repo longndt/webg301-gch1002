@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-3 text-center">
+  <a class="btn btn-outline-primary" href="{{ path('car_new') }}">Create new car</a>
+  <br>
+  <h3 class="text text-center mt-4">Car list</h3>
+  <table class="table table-bordered text-center">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Make</th>
+      <th>Model</th>
+      <th>Travelled Distance</th>
+      <th>Parts</th>
+      <th>Sales</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for car in cars %}
+      <tr>
+        <td><a href="{{ path('car_show', { 'id': car.id }) }}">{{ car.id }}</a></td>
+        <td>{{ car.make }}</td>
+        <td>{{ car.model }}</td>
+        <td>{{ car.travelledDistance }} km </td>
+        <td>
+          {% for part in car.parts %}
+            <a href="{{ path('part_index', {'id' : part.id })}}">
+              {{ part.name }}
+            </a>
+              <br>
+          {% endfor %}
+        </td>
+        <td>
+          {% for sale in car.sales %}
+               <a href="{{ path('sale_index', {'id' : sale.id })}}">
+              {{ sale.discount }}  $
+            </a>
+              <br>
+          {% endfor %}
+        </td>
+        <td>
+          <a href="{{ path('car_show', { 'id': car.id }) }}">Show</a><br>
+          <a href="{{ path('car_edit', { 'id': car.id }) }}">Edit</a><br>
+          <a href="{{ path('car_delete', { 'id': car.id }) }}">Delete</a><br>  
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

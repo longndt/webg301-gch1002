@@ -1,0 +1,14 @@
+# This file is the entry point to configure your own HTTP routes.
+# Files in the routes/ subdirectory configure the routes for your dependencies.
+
+#index:
+#    path: /
+#    defaults: { _controller: 'App\Controller\DefaultController::index' }
+
+customer_list:
+     path: /customer
+     defaults: { _controller: 'App\Controller\CustomerController::listCustomer' }
+
+sort_cust_asc:
+     path: /customer/sortAsc
+     defaults: { _controller: 'App\Controller\CustomerController::sortCustAsc' }

@@ -1,0 +1,15 @@
+{% form_theme edit_form 'bootstrap_4_layout.html.twig' %}
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+  <div class="container text-center mt-5">
+      <h4>Edit Sale</h4>
+
+      {{ form_start(edit_form) }}
+      {{ form_widget(edit_form) }}
+            <br>
+            <input type="submit" value="Edit" />
+      {{ form_end(edit_form) }}
+  </div>
+{% endblock %}

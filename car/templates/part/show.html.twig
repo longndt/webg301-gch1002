@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-3 text-center">
+  <h3 class="text text-center mt-4">Part detail</h3>
+  <table class="table table-bordered text-center">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ part.name }}</td>
+        <td>{{ part.price }} $ </td>
+        <td>{{ part.quantity }}</td>
+        <td>
+          <a href="{{ path('part_edit', { 'id': part.id }) }}">Edit</a><br>
+          <a href="{{ path('part_delete', { 'id': part.id }) }}">Delete</a><br>  
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

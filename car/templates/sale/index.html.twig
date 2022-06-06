@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-3 text-center">
+  <a class="btn btn-outline-primary" href="{{ path('sale_new') }}">Create new sale</a>
+  <br>
+  <h3 class="text text-center mt-4">Sale list</h3>
+  <table class="table table-bordered text-center">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Discount</th>
+      <th>Car</th>
+      <th>Customer</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for sale in sales %}
+      <tr>
+        <td><a href="{{ path('sale_show', { 'id': sale.id }) }}">{{ sale.id }}</a></td>
+        <td>{{ sale.discount }} $ </td>
+        <td>{{ sale.car.make }}</td>
+        <td>
+        <a href="{{ path('customer_index', {'id': sale.customer.id })}}"> {{ sale.customer.name }} </a> 
+        </td>
+        <td>
+          <a href="{{ path('sale_show', { 'id': sale.id }) }}">Show</a><br>
+          <a href="{{ path('sale_edit', { 'id': sale.id }) }}">Edit</a><br>
+          <a href="{{ path('sale_delete', { 'id': sale.id }) }}">Delete</a><br>  
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
