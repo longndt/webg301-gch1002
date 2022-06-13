@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container-fluid col-md-8 text-center mt-3">
+<table class="table table-condensed">
+   <tr>
+      <th class="text text-bg-success" colspan="2">Class Detail</th>
+   </tr>
+   <tr>
+      <th>Class Name</th>
+      <td>{{ class.name }}</td>
+   </tr>
+   <tr>
+      <th>Class Quantity</th>
+      <td>{{ class.quantity }}</td>
+   </tr>
+   <tr>
+      <th>Course List</th>
+      <td>
+         {% if class.courses != null %}
+            {% for course in class.courses %}
+            <a href="{{ path('view_course_by_id', {'id':course.id })}}">
+                  {{ course.name }}
+            </a>   
+            <br>
+         {% endfor %}
+         {% endif %}     
+      </td>
+   </tr>
+</table>
+</div>
+{% endblock %}

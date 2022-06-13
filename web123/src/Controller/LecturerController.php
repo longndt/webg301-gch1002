@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Lecturer;
+use App\Form\LecturerType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +22,7 @@ class LecturerController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'view_lecturer_by_id')]
+    #[Route('/detail/{id}', name: 'view_lecturer_by_id')]
     public function LecturerDetail(ManagerRegistry $managerRegistry, $id) {
         $lecturer = $managerRegistry->getRepository(Lecturer::class)->find($id);
         return $this->render("lecturer/detail.html.twig",

@@ -1,20 +1,31 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello SClassController!{% endblock %}
-
+{% extends "base.html.twig" %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/workspace/webg301-gch1002/web123/src/Controller/SClassController.php'|file_link(0) }}">src/Controller/SClassController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/workspace/webg301-gch1002/web123/templates/s_class/index.html.twig'|file_link(0) }}">templates/s_class/index.html.twig</a></code></li>
-    </ul>
+<div class="container col-md-6 text-center mt-3">
+    <h1 class="text text-bg-success">Class List</h1>
+    <a class="btn btn-outline-primary" href="{{ path('add_class')}}">Add new class</a>
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Class Id</th>
+                <th>Class Name</th>
+                <th>Menu</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for class in classes %}
+            <tr>
+                <td>{{ class.id }} </td>
+                <td>{{ class.name }}</td>
+                <td>
+                <a class="btn btn-info" href="{{ path('view_class_by_id', {'id': class.id })}}">Detail</a>
+                <a class="btn btn-warning" href="{{ path('edit_class', {'id': class.id })}}">Edit</a>
+                <a class="btn btn-danger" href="{{ path('delete_class', {'id': class.id })}}"
+                onclick = "return confirm('Do you want to delete this class ?');"
+                >Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

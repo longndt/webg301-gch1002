@@ -25,7 +25,7 @@ class CourseController extends AbstractController
         );
     }
 
-    #[Route('/{id}', name: 'view_course_by_id')]
+    #[Route('/detail/{id}', name: 'view_course_by_id')]
     public function CourseDetail(CourseRepository $courseRepository, $id)
     {
         $course = $courseRepository->find($id);
@@ -64,9 +64,9 @@ class CourseController extends AbstractController
             $this->addFlash("Success","Add course succeed !");
             return $this->redirectToRoute("view_course_list");
         }
-        return $this->renderForm("course/add.html.twig",
+        return $this->render("course/add.html.twig",
         [
-            'courseForm' => $form
+            'courseForm' => $form->createView()
         ]);
     }
 

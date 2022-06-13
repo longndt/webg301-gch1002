@@ -1,14 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="container col-md-8 text-center mt-3">
+<div class="container col-md-6 text-center mt-3">
     <h1 class="text text-success">Course List</h1>
-    {% for error in app.session.flashBag.get('Error') %}
-        <p class="alert alert-danger">{{ error }} </p>
-    {% endfor %}
-    {% for success in app.session.flashBag.get('Success') %}
-        <p class="alert alert-success">{{ success }} </p>
-    {% endfor %}
+    <a href="{{ path('add_course')}}">
+        <img src="{{ asset('images/icons/add.jpg')}}" width="80" height="30">
+    </a>
     <table class="table table-primary mt-3">
         <thead>
           <tr>

@@ -25,6 +25,7 @@
                {% for lecturer in course.lecturers %}
                   <a href="{{ path('view_lecturer_by_id', {'id' : lecturer.id })}}">
                      {{ lecturer.name }}
+                     <br>
                   </a>     
                {% endfor %}  
             {% endif %}

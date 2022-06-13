@@ -1,0 +1,10 @@
+{% form_theme lecturerForm "bootstrap_5_layout.html.twig" %}
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container col-md-7 text-center mt-3">
+<h1 class="text text-bg-success">Edit lecturer</h1>
+{{ form_start (lecturerForm) }}
+{{ form_end (lecturerForm) }}
+</div>
+{% endblock %}

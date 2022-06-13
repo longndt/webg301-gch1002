@@ -1,20 +1,32 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello LecturerController!{% endblock %}
+{% extends "base.html.twig" %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/workspace/webg301-gch1002/web123/src/Controller/LecturerController.php'|file_link(0) }}">src/Controller/LecturerController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/workspace/webg301-gch1002/web123/templates/lecturer/index.html.twig'|file_link(0) }}">templates/lecturer/index.html.twig</a></code></li>
-    </ul>
+<div class="container col-md-6 text-center mt-3">
+    <h1 class="text text-bg-success">Lecturer List</h1>
+    <a class="btn btn-outline-primary" href="{{ path('add_lecturer')}}">Add new lecturer</a>
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Lecturer Id</th>
+                <th>Lecturer Name</th>
+                <th>Menu</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for lecturer in lecturers %}
+            <tr>
+                <td>{{ lecturer.id }} </td>
+                <td>{{ lecturer.name }}</td>
+                <td>
+                <a class="btn btn-info" href="{{ path('view_lecturer_by_id', {'id': lecturer.id })}}">Detail</a>
+                <a class="btn btn-warning" href="{{ path('edit_lecturer', {'id': lecturer.id })}}">Edit</a>
+                <a class="btn btn-danger" href="{{ path('delete_lecturer', {'id': lecturer.id })}}"
+                onclick = "return confirm('Do you want to delete this lecturer ?');"
+                >Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

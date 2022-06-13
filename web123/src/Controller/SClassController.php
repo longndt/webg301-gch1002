@@ -31,7 +31,7 @@ class SClassController extends AbstractController
       ]);
     }
 
-    #[Route('/{id}', name: 'view_class_by_id')]
+    #[Route('/detail/{id}', name: 'view_class_by_id')]
     public function ClassDetail($id) {
         $class = $this->getDoctrine()->getRepository(SClass::class)-> find($id);
         if ($class == null) {

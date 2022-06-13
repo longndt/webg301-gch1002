@@ -14,6 +14,39 @@
         {% endblock %}
     </head>
     <body>
+        {% block navigation %}
+            <nav class="navbar navbar-expand navbar-light bg-light">
+                <ul class="nav navbar-nav">
+                     <li class="nav-item active">
+                        <h2><a class="nav-link" href="{{ path('home') }}">Home</a></h2>
+                    </li>
+                    <li class="nav-item active">
+                        <h2><a class="nav-link" href="{{ path('view_course_list') }}">Course</a></h2>
+                    </li>
+                    <li class="nav-item">
+                        <h2><a class="nav-link" href="{{ path('view_lecturer_list') }}">Lecturer</a></h2>
+                    </li>
+                    <li class="nav-item">
+                        <h2><a class="nav-link" href="{{ path('view_class_list') }}">Class</a></h2>
+                    </li>
+                </ul>
+            </nav>
+        {% endblock %}
+        {% block message %}
+        <div class="container col-md-10 text-center mb-3">
+            {% for error in app.session.flashBag.get('Error') %}
+                <p class="alert alert-danger">{{ error }} </p>
+            {% endfor %}
+            {% for success in app.session.flashBag.get('Success') %}
+                <p class="alert alert-success">{{ success }} </p>
+        </div>
+        {% endfor %}
+        {% endblock %}
         {% block body %}{% endblock %}
+        {% block footer %}
+        <div class="container fluid col-md-10 text-center mt-5">
+            <p class="text text-bg-light">Demo web project - 2022 </p>
+        </div>
+        {% endblock %}
     </body>
 </html>
