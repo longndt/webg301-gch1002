@@ -3,14 +3,33 @@
 {% block body %}
 <div class="container col-md-6 text-center mt-3">
     <h1 class="text text-success">Course List</h1>
-    <a href="{{ path('add_course')}}">
-        <img src="{{ asset('images/icons/add.jpg')}}" width="80" height="30">
-    </a>
+    {# gán chức năng Add Course cho role Admin #}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('add_course')}}">
+            <img src="{{ asset('images/icons/add.jpg')}}" width="80" height="30">
+        </a>
+    {% endif %}
+
+    <br><br>
+    <form class="form-group" action="{{ path('search_course_name') }}" method="post">
+        <input class="form-control" type="search" name="keyword" required
+        placeholder="Search by course name">
+    </form>
+    <div class="form-group mt-3 col-md-6">
+    <select onchange="window.location.href=this.value" class="form-control">
+        <option>Sort by</option>
+        <option value="{{ path('sort_course_name_ascending')}}">Name Ascending</option>
+        <option value="{{ path('sort_course_name_descending')}}">Name Descending</option>
+    </select>
+    </div>
+    {% if courses == null %}
+        <h4 class="text text-bg-danger mt-4">Course not found !</h4>
+    {% else %}
     <table class="table table-primary mt-3">
         <thead>
           <tr>
             <th>Course Id</th>
-            <th>Course Title</th>
+            <th>Course Name</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -37,5 +56,6 @@
          {% endfor %}
         </tbody>
     <table>
+    {% endif %}
 </div>
 {% endblock %}

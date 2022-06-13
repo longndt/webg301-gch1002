@@ -79,7 +79,7 @@ class CourseRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('course')
             ->andWhere('course.name LIKE :name')
             ->setParameter('name', '%'. $name . '%')
-            ->orderBy('c.id', 'DESC')
+            ->orderBy('course.id', 'DESC')
             ->setMaxResults(5)
             ->getQuery()
             ->getResult()

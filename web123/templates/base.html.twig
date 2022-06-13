@@ -31,16 +31,14 @@
                     </li>
                     <li class="nav-item">
                         <h2><a class="nav-link" href="{{ path('app_logout') }}">Logout 
-                            <i><u>
-                            ({{app.user.username}})
-                            </i></u>
+                          <i>({{ app.user.username }})</i>
                         </a></h2>
                     </li>
                 </ul>
             </nav>
         {% endblock %}
         {% block message %}
-        <div class="container col-md-10 text-center mb-3">
+        <div class="container col-md-10 text-center mb-3 mt-4">
             {% for error in app.session.flashBag.get('Error') %}
                 <p class="alert alert-danger">{{ error }} </p>
             {% endfor %}

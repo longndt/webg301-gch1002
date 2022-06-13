@@ -3,6 +3,7 @@
 {% block navigation %}{% endblock %}
 
 {% block body %}
+<div class="container col-md-5 text-center mt-3">
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -15,6 +16,7 @@
     {% endif %}
 
     <h1 class="text text-danger">Login</h1>
+
     <label for="inputUsername">Username</label>
     <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
     <label for="inputPassword">Password</label>
@@ -36,6 +38,7 @@
     <br>
     <a class="btn btn-success mt-4" href="{{ path('app_register')}}">Register new account</a>
 </form>
+</div>
 {% endblock %}
 
 {% block footer %}{% endblock %}

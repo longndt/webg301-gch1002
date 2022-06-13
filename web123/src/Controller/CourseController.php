@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[Route('/course')]
 class CourseController extends AbstractController
@@ -37,6 +38,9 @@ class CourseController extends AbstractController
         );
     }
 
+     /**
+     * @IsGranted("ROLE_MANAGER")
+     */
     #[Route('/delete/{id}', name: 'delete_course')]
     public function CourseDelete(CourseRepository $courseRepository, $id) {
         $course = $courseRepository->find($id);
@@ -52,6 +56,9 @@ class CourseController extends AbstractController
         return $this->redirectToRoute("view_course_list");
     }
 
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     */
     #[Route('/add', name: 'add_course')]
     public function CourseAdd(Request $request) {
         $course = new Course;
