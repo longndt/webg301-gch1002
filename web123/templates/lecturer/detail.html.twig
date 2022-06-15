@@ -5,7 +5,7 @@
 <h1 class="text text-bg-info"> {{lecturer.name }} </h1>
 <div class="row">
    <div class="col">
-      <img src="{{ lecturer.image }}" width="250" height="250">
+      <img src="{{ asset('images/lecturer/'~lecturer.image) }}" width="250" height="250">
    </div>
    <div class="col">
       <h4>Birthday: {{ lecturer.dateofbirth | date('d/m/Y')}} </h4>

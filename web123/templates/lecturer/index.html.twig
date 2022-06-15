@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-<div class="container col-md-6 text-center mt-3">
+<div class="container col-md-8 text-center mt-3">
     <h1 class="text text-bg-success">Lecturer List</h1>
     <a class="btn btn-outline-primary" href="{{ path('add_lecturer')}}">Add new lecturer</a>
     <table class="table table-responsive">
@@ -9,6 +9,7 @@
             <tr>
                 <th>Lecturer Id</th>
                 <th>Lecturer Name</th>
+                <th>Lecturer Image</th>
                 <th>Menu</th>
             </tr>
         </thead>
@@ -17,6 +18,9 @@
             <tr>
                 <td>{{ lecturer.id }} </td>
                 <td>{{ lecturer.name }}</td>
+                <td>
+                    <img src="{{ asset('images/lecturer/'~lecturer.image) }}" width="100" height="100">
+                </td>
                 <td>
                 <a class="btn btn-info" href="{{ path('view_lecturer_by_id', {'id': lecturer.id })}}">Detail</a>
                 <a class="btn btn-warning" href="{{ path('edit_lecturer', {'id': lecturer.id })}}">Edit</a>

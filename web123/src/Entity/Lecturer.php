@@ -67,7 +67,7 @@ class Lecturer
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail()
     {
         return $this->email;
     }
@@ -91,14 +91,19 @@ class Lecturer
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage()
     {
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage($image): self
     {
-        $this->image = $image;
+        //nếu người dùng upload ảnh mới khi edit
+        //thì override ảnh cũ
+        //ngược lại thì giữ nguyên ảnh cũ
+        if ($image != null) {
+            $this->image = $image;
+        }
 
         return $this;
     }

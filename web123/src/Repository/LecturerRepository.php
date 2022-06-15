@@ -47,22 +47,17 @@ class LecturerRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Lecturer[] Returns an array of Lecturer objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Lecturer[] 
+      */
+    public function viewAllLecturer()
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('lecturer')
+            ->orderBy('lecturer.id', 'DESC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Lecturer

@@ -4,12 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Lecturer;
 use App\Form\LecturerType;
+use App\Repository\LecturerRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+
+use function PHPUnit\Framework\throwException;
 
 /**
  * @IsGranted("ROLE_MANAGER")
@@ -18,8 +22,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class LecturerController extends AbstractController
 {
     #[Route('/ ', name: 'view_lecturer_list')]
-    public function LecturerIndex(ManagerRegistry $managerRegistry) {
-        $lecturers = $managerRegistry->getRepository(Lecturer::class)->findAll();
+    public function LecturerIndex(LecturerRepository $lecturerRepository) {
+        $lecturers = $lecturerRepository->viewAllLecturer();
         return $this->render("lecturer/index.html.twig",
         [
             'lecturers' => $lecturers
@@ -41,7 +45,7 @@ class LecturerController extends AbstractController
         if ($lecturer == null) {
             $this->addFlash("Error","Lecturer not found !");        
         } 
-        else if (count($lecturer->getLecturers()) >= 1 ) {
+        else if (count($lecturer->getCourse()) >= 1 ) {
             $this->addFlash("Error","Can not delete this lecturer !");
         }
         else {
@@ -59,6 +63,29 @@ class LecturerController extends AbstractController
         $form = $this->createForm(LecturerType::class,$lecturer);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            //code xử lý việc upload ảnh
+            //B1: tạo 1 biến để lấy dữ liệu ảnh được upload từ form
+            $image = $lecturer->getImage();
+            //B2: tạo tên mới cho ảnh => đảm bảo tên ảnh là duy nhất
+            $imgName = uniqid(); //unique id
+            //B3: lấy đuôi (extension) của file ảnh
+            //Note: cần xóa data type "string" trong getter & setter của file Entity
+            $imgExtension = $image->guessExtension();
+            //B4: tạo tên file hoàn thiện cho ảnh (tên mới + đuôi cũ)
+            $imageName = $imgName . "." . $imgExtension;
+            //B5: di chuyển file ảnh đến thư mục chỉ định ở trong project  
+            //Note1: cần tạo thư mục chứa ảnh trong public
+            //Note2: cấu hình parameter trong file services.yaml (thư mục config)
+             try {
+                $image->move (
+                    $this->getParameter('lecturer_image'),$imageName
+                );
+            } catch (FileException $e) {
+                throwException($e);
+            }
+            //B6: lưu tên ảnh vào trong DB
+            $lecturer->setImage($imageName);
+
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($lecturer);
             $manager->flush();
@@ -81,6 +108,34 @@ class LecturerController extends AbstractController
             $form = $this->createForm(LecturerType::class,$lecturer);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
+                //kiểm tra xem người dùng có muốn upload ảnh mới hay không
+                //nếu có thì thực hiện code upload ảnh
+                //nếu không thì bỏ qua
+                $imageFile = $form['image']->getData();
+                if ($imageFile != null) {
+                    //B1: tạo 1 biến để lấy dữ liệu ảnh được upload từ form
+                    $image = $lecturer->getImage();
+                    //B2: tạo tên mới cho ảnh => đảm bảo tên ảnh là duy nhất
+                    $imgName = uniqid(); //unique id
+                    //B3: lấy đuôi (extension) của file ảnh
+                    //Note: cần xóa data type "string" trong getter & setter của file Entity
+                    $imgExtension = $image->guessExtension();
+                    //B4: tạo tên file hoàn thiện cho ảnh (tên mới + đuôi cũ)
+                    $imageName = $imgName . "." . $imgExtension;
+                    //B5: di chuyển file ảnh đến thư mục chỉ định ở trong project
+                    //Note1: cần tạo thư mục chứa ảnh trong public
+                    //Note2: cấu hình parameter trong file services.yaml (thư mục config)
+                    try {
+                        $image->move(
+                            $this->getParameter('lecturer_image'),
+                            $imageName
+                        );
+                    } catch (FileException $e) {
+                        throwException($e);
+                    }
+                    //B6: lưu tên ảnh vào trong DB
+                    $lecturer->setImage($imageName);
+                }
                 $manager = $managerRegistry->getManager();
                 $manager->persist($lecturer);
                 $manager->flush();

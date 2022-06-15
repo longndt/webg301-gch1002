@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="container col-md-5 text-center mt-3">
-<form method="post">
+<form class="card p-3 bg-info" method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -32,12 +32,14 @@
         </label>
     </div>
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
+    <div class="col-md-3 ">
+        <button class="btn btn-lg btn-primary text-center" type="submit">
+            Login
+        </button>
+    </div>
     <br>
-    <a class="btn btn-success mt-4" href="{{ path('app_register')}}">Register new account</a>
 </form>
+<a class="btn btn-success mt-4" href="{{ path('app_register')}}">Register new account</a>
 </div>
 {% endblock %}
 
